@@ -1,0 +1,18 @@
+input{
+	
+  width: 20%;
+  padding: 1px 2px;
+  margin: 0.5em 0;
+  box-sizing: border-box;
+}
+
+.form{
+	margin-top: 5px;
+	margin: 5px 0 5px 0 auto;
+	 border: 0.1em inset #ff8000;
+}
+
+.hidden{
+	display: none;
+}
+

@@ -1,0 +1,36 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- Configuración JDBC para el acceso a la BBDD -->
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/colegio</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">1234</property>
+
+        <!-- Seteamos el pool de conexiones a 1-->
+        <property name="connection.pool_size">100</property>
+
+        <!-- Dialecto SQL a usar, cada BBDD (Oracle, MySQL, Posgress) tiene el suyo -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+        <!-- Con esta configuración nos saldrá por consola las sentencias SQL que se envían a la BBDD -->
+        <property name="show_sql">true</property>
+         <!-- Con esta configuración nos saldrá por consola las sentencias SQL de una forma más legible -->
+        <property name="format_sql">true</property>    
+
+
+		<property name="current_session_context_class">thread</property>
+		
+			<mapping class="com.kike.colegio.entities.AlumnoEntity"/>
+			<mapping class="com.kike.colegio.entities.MunicipiosEntity"/>
+			<mapping class="com.kike.colegio.entities.AsignaturasEntity"/>
+			<mapping class="com.kike.colegio.entities.CajaEntity"/>
+			<mapping class="com.kike.colegio.entities.MatriculacionesEntity"/>
+    </session-factory>
+
+</hibernate-configuration>
