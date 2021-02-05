@@ -8,6 +8,8 @@ import java.sql.Statement;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
@@ -36,6 +38,26 @@ public class DBUtils {
 
 		return sessionFactory;
 	}
+	
+		private static EntityManagerFactory entityManagerFactory; // las variables estáticas son las que pertenecen a la clase y no al
+		// objeto.
+			
+			//Implantamos el patrón singleton, lo cual nos garantiza que solo haya un objeto creado de SessionFactory en nuestra app
+			
+			public static EntityManagerFactory creadorEntityManagerFactory() {
+			
+			if (entityManagerFactory == null) {
+			try {
+			entityManagerFactory = Persistence.createEntityManagerFactory("colegio"); //será el nombre de nuestra unidad de persistencia en el archivo persistance.xml
+			} catch (Throwable ex) {
+			System.err.println("Error al crear el objeto SessionFactory" + ex);
+			throw new ExceptionInInitializerError(ex);
+			}
+			
+			}
+			
+			return entityManagerFactory;
+			}
 
 	public static Connection DBConnection() {
 
