@@ -17,6 +17,7 @@ import com.kike.colegio.dao.impl.AlumnoDAOImpl;
 import com.kike.colegio.dao.impl.AsignaturaDAOImpl;
 import com.kike.colegio.dao.implhib.AlumnoDAOImplHib;
 import com.kike.colegio.dao.implhib.AsignaturaDAOImplHib;
+import com.kike.colegio.dao.implhib.AsignaturaDAOImplJpa;
 import com.kike.colegio.dtos.AlumnoDTO;
 import com.kike.colegio.dtos.AsignaturaDTO;
 
@@ -52,7 +53,7 @@ public class FormularioBorrarAsignaturaController extends HttpServlet {
 		String curso = request.getParameter("curso");
 		String tasa = request.getParameter("tasa");
 		
-		AsignaturaDAO a = new AsignaturaDAOImplHib();
+		AsignaturaDAO a = new AsignaturaDAOImplJpa();
 	 	List<AsignaturaDTO> listaAsignatura = new ArrayList<>();
 	 	
 	 	listaAsignatura = a.obtenerAsignaturaPorIdNombreCursoTasa(id, nombre, curso, tasa);

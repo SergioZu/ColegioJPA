@@ -15,6 +15,7 @@ import com.kike.colegio.dao.impl.AlumnoDAOImpl;
 import com.kike.colegio.dao.impl.AsignaturaDAOImpl;
 import com.kike.colegio.dao.implhib.AlumnoDAOImplHib;
 import com.kike.colegio.dao.implhib.AsignaturaDAOImplHib;
+import com.kike.colegio.dao.implhib.AsignaturaDAOImplJpa;
 
 /**
  * Servlet Implation class ActualizarAsignaturaController
@@ -51,7 +52,7 @@ public class ActualizarAsignaturaController extends HttpServlet {
 		String curso = request.getParameter("curso");
 		String tasa = request.getParameter("tasa");
 		
-		AsignaturaDAO a = new AsignaturaDAOImplHib();
+		AsignaturaDAO a = new AsignaturaDAOImplJpa();
 		a.actualizarAsignatura(idOld, idNew, nombre, curso, tasa);
 		
 		RequestDispatcher d = getServletContext().getRequestDispatcher("/WEB-INF/vistas/asignaturas/actualizarAsignaturas.jsp");		

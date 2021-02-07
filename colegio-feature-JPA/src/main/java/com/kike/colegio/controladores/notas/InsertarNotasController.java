@@ -14,6 +14,7 @@ import com.kike.colegio.dao.NotaDAO;
 import com.kike.colegio.dao.impl.AsignaturaDAOImpl;
 import com.kike.colegio.dao.impl.NotaDAOImpl;
 import com.kike.colegio.dao.implhib.NotaDAOImplHib;
+import com.kike.colegio.dao.implhib.NotaDAOImplJpa;
 import com.kike.colegio.utils.ComboUtils;
 
 /**
@@ -53,7 +54,7 @@ public class InsertarNotasController extends HttpServlet {
 		String fecha = request.getParameter("fecha");
 		String nota = request.getParameter("nota");
 				
-		NotaDAO n = new NotaDAOImplHib();
+		NotaDAO n = new NotaDAOImplJpa();
 				
 		Integer resultado= n.insertarNota(idAlumno, idAsignatura, nota, fecha);
 		

@@ -13,6 +13,7 @@ import com.kike.colegio.dao.NotaDAO;
 import com.kike.colegio.dao.impl.NotaDAOImpl;
 import com.kike.colegio.dao.implhib.AlumnoDAOImplHib;
 import com.kike.colegio.dao.implhib.NotaDAOImplHib;
+import com.kike.colegio.dao.implhib.NotaDAOImplJpa;
 
 /**
  * Servlet Implation class FormularioEliminarNotaController
@@ -46,7 +47,7 @@ public class FormularioEliminarNotaController extends HttpServlet {
 		String asignatura = request.getParameter("asignatura");
 		String fecha = request.getParameter("fecha");
 		
-		NotaDAO n= new NotaDAOImplHib();
+		NotaDAO n= new NotaDAOImplJpa();
 		
 		request.setAttribute("lista",n.obtenerNotaPorIdNombreAsignaturaNotaFecha("", nombre, asignatura, "", fecha));
 		

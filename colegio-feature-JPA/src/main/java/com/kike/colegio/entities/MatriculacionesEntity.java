@@ -57,6 +57,10 @@ public class MatriculacionesEntity {
 	
 	
 
+	public MatriculacionesEntity() {
+		super();
+	}
+
 	public MatriculacionesEntity(AsignaturasEntity asignaturas) {
 		super();
 		this.asignaturas = asignaturas;

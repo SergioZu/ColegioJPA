@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kike.colegio.dao.NotaDAO;
 import com.kike.colegio.dao.impl.NotaDAOImpl;
 import com.kike.colegio.dao.implhib.NotaDAOImplHib;
+import com.kike.colegio.dao.implhib.NotaDAOImplJpa;
 import com.kike.colegio.dtos.AsignaturaDTO;
 import com.kike.colegio.dtos.NotaDTO;
 import com.kike.colegio.utils.ComboUtils;
@@ -52,7 +53,7 @@ public class FormularioActualizarNotasController extends HttpServlet {
 		String asignatura = request.getParameter("asignatura");
 		String fecha = request.getParameter("fecha");
 		
-		NotaDAO n = new NotaDAOImplHib();
+		NotaDAO n = new NotaDAOImplJpa();
 				
 		List<NotaDTO> listaNota = new ArrayList<>();
 	 	

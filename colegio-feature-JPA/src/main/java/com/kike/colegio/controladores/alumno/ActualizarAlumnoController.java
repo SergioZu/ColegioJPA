@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kike.colegio.dao.AlumnoDAO;
 import com.kike.colegio.dao.impl.AlumnoDAOImpl;
 import com.kike.colegio.dao.implhib.AlumnoDAOImplHib;
+import com.kike.colegio.dao.impljpa.AlumnoDAOImplJpa;
 
 /**
  * Servlet Implation class ActualizarAlumno
@@ -50,7 +51,7 @@ public class ActualizarAlumnoController extends HttpServlet {
 
 
 //		AlumnoDAO a = new AlumnoDAOImpl();
-		AlumnoDAO a = new AlumnoDAOImplHib();
+		AlumnoDAO a = new AlumnoDAOImplJpa();
 		a.actualizarAlumno(idOld, idNew, nombre, idMunicipio, famNumerosa);
 		
 		RequestDispatcher d = getServletContext().getRequestDispatcher("/WEB-INF/vistas/alumnos/actualizarAlumnos.jsp");

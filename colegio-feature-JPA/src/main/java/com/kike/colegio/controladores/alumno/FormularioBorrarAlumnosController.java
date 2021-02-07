@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kike.colegio.dao.AlumnoDAO;
 import com.kike.colegio.dao.impl.AlumnoDAOImpl;
 import com.kike.colegio.dao.implhib.AlumnoDAOImplHib;
+import com.kike.colegio.dao.impljpa.AlumnoDAOImplJpa;
 import com.kike.colegio.dtos.AlumnoDTO;
 
 /**
@@ -46,7 +47,7 @@ public class FormularioBorrarAlumnosController extends HttpServlet {
 		String id = request.getParameter("id");
 		String nombre = request.getParameter("nombre");
 		
-		AlumnoDAO a = new AlumnoDAOImplHib();
+		AlumnoDAO a = new AlumnoDAOImplJpa();
 	 	List<AlumnoDTO> listaAlumnos = new ArrayList<>();
 	 	
 	 	listaAlumnos = a.obtenerAlumnosporIdyNombre(id, nombre);

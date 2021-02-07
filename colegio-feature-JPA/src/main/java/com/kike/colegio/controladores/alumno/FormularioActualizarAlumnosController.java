@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kike.colegio.dao.AlumnoDAO;
 import com.kike.colegio.dao.impl.AlumnoDAOImpl;
 import com.kike.colegio.dao.implhib.AlumnoDAOImplHib;
+import com.kike.colegio.dao.impljpa.AlumnoDAOImplJpa;
 import com.kike.colegio.dtos.AlumnoDTO;
 import com.kike.colegio.utils.ComboUtils;
 
@@ -51,7 +52,7 @@ public class FormularioActualizarAlumnosController extends HttpServlet {
 		String nombre = request.getParameter("nombre");
 		
 //		AlumnoDAO a = new AlumnoDAOImpl();
-		AlumnoDAO a = new AlumnoDAOImplHib();
+		AlumnoDAO a = new AlumnoDAOImplJpa();
 	 	List<AlumnoDTO> listaAlumnos = new ArrayList<>();
 	 	
 	 	listaAlumnos = a.obtenerAlumnosporIdyNombre(id, nombre);

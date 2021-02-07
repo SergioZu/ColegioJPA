@@ -11,6 +11,7 @@ import java.util.List;
 import com.kike.colegio.dao.impl.AlumnoDAOImpl;
 import com.kike.colegio.dao.impl.AsignaturaDAOImpl;
 import com.kike.colegio.dao.implhib.AsignaturaDAOImplHib;
+import com.kike.colegio.dao.implhib.AsignaturaDAOImplJpa;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -72,7 +73,7 @@ public class ListadoAsignaturasController extends HttpServlet {
 		String curso = request.getParameter("curso");
 		String tasa = request.getParameter("tasa");
 		
-		AsignaturaDAO a = new AsignaturaDAOImplHib();
+		AsignaturaDAO a = new AsignaturaDAOImplJpa();
 	 	List<AsignaturaDTO> listaAsignaturas = new ArrayList<>();
 	 	
 	 	listaAsignaturas = a.obtenerAsignaturaPorIdNombreCursoTasa(id, nombre, curso, tasa);

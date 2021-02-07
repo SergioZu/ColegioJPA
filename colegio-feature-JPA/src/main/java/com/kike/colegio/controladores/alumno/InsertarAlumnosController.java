@@ -15,6 +15,7 @@ import com.kike.colegio.dao.CombosDAO;
 import com.kike.colegio.dao.impl.AlumnoDAOImpl;
 import com.kike.colegio.dao.impl.CombosDAOImpl;
 import com.kike.colegio.dao.implhib.AlumnoDAOImplHib;
+import com.kike.colegio.dao.impljpa.AlumnoDAOImplJpa;
 import com.kike.colegio.dtos.ComboDTO;
 import com.kike.colegio.utils.ComboUtils;
 
@@ -64,7 +65,7 @@ public class InsertarAlumnosController extends HttpServlet {
 //		AlumnoDAO a = new AlumnoDAOImpl();		
 		
 		//Implementación Hibernate
-		AlumnoDAO a = new AlumnoDAOImplHib();	
+		AlumnoDAO a = new AlumnoDAOImplJpa();	
 		
 		Integer resultado = a.insertarAlumno(id, nombre, idMunicipios, famNumerosa);
 		

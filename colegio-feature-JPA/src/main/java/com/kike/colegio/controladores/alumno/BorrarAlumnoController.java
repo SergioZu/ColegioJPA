@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kike.colegio.dao.AlumnoDAO;
 import com.kike.colegio.dao.impl.AlumnoDAOImpl;
 import com.kike.colegio.dao.implhib.AlumnoDAOImplHib;
+import com.kike.colegio.dao.impljpa.AlumnoDAOImplJpa;
 
 /**
  * Servlet Implation class BorrarAlumno
@@ -44,7 +45,7 @@ public class BorrarAlumnoController extends HttpServlet {
 		String id = request.getParameter("id");
 		
 //		AlumnoDAO a = new AlumnoDAOImpl();
-		AlumnoDAO a = new AlumnoDAOImplHib();
+		AlumnoDAO a = new AlumnoDAOImplJpa();
 		
 		a.borrarAlumno(id);
 		

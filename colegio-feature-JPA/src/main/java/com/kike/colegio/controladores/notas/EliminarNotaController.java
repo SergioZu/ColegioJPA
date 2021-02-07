@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kike.colegio.dao.NotaDAO;
 import com.kike.colegio.dao.impl.NotaDAOImpl;
 import com.kike.colegio.dao.implhib.NotaDAOImplHib;
+import com.kike.colegio.dao.implhib.NotaDAOImplJpa;
 
 /**
  * Servlet Implation class EliminarNotaController
@@ -40,7 +41,7 @@ public class EliminarNotaController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		NotaDAO n = new NotaDAOImplHib();
+		NotaDAO n = new NotaDAOImplJpa();
 		
 		String id = request.getParameter("idNota");;
 		
