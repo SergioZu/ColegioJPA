@@ -82,7 +82,7 @@ public class MatriculacionDAOImplJpa implements MatriculacionDAO {
 		
 		
 		em.persist(no);
-		em.getTransaction();
+		em.getTransaction().commit();
 		em.persist(cajaEntity);
 		
 		em.getTransaction().commit();
