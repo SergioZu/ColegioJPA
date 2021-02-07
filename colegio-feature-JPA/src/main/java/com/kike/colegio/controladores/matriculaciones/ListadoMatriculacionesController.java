@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kike.colegio.dao.MatriculacionDAO;
 import com.kike.colegio.dao.impl.MatriculacionDAOImpl;
 import com.kike.colegio.dao.implhib.MatriculacionDAOImplHib;
+import com.kike.colegio.dao.implhib.MatriculacionDAOImplJpa;
 import com.kike.colegio.dtos.MatriculacionDTO;
 
 /**
@@ -50,7 +51,7 @@ public class ListadoMatriculacionesController extends HttpServlet {
 		String fecha = request.getParameter("fecha");
 		String activo = request.getParameter("activo");
 		
-		MatriculacionDAO m = new MatriculacionDAOImplHib();
+		MatriculacionDAO m = new MatriculacionDAOImplJpa();
 		
 		List<MatriculacionDTO> listaMatriculaciones = m.obtenerMatriculacionesPorIdasigNombreAsigIdalumNombrealumFechaActivo(idAsig, nombreAsig, idAlum, nombreAlum, fecha, activo);
 		

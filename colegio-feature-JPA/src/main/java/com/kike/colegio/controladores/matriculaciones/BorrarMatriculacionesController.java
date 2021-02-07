@@ -13,6 +13,7 @@ import com.kike.colegio.dao.MatriculacionDAO;
 import com.kike.colegio.dao.NotaDAO;
 import com.kike.colegio.dao.impl.MatriculacionDAOImpl;
 import com.kike.colegio.dao.implhib.MatriculacionDAOImplHib;
+import com.kike.colegio.dao.implhib.MatriculacionDAOImplJpa;
 import com.kike.colegio.dao.implhib.NotaDAOImplHib;
 
 /**
@@ -44,7 +45,7 @@ public class BorrarMatriculacionesController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idMatricula = request.getParameter("idMatricula");
 		
-		MatriculacionDAO m = new MatriculacionDAOImplHib();
+		MatriculacionDAO m = new MatriculacionDAOImplJpa();
 		
 		Integer resultado = m.borrarMatriculacion(idMatricula);
 		

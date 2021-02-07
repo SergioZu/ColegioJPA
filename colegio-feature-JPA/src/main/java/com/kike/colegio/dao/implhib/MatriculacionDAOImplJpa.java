@@ -19,6 +19,7 @@ import com.kike.colegio.entities.AlumnoEntity;
 import com.kike.colegio.entities.AsignaturasEntity;
 import com.kike.colegio.entities.CajaEntity;
 import com.kike.colegio.entities.MatriculacionesEntity;
+import com.kike.colegio.entities.NotasEntity;
 import com.kike.colegio.utils.DBUtils;
 
 public class MatriculacionDAOImplJpa implements MatriculacionDAO {
@@ -57,14 +58,6 @@ public class MatriculacionDAOImplJpa implements MatriculacionDAO {
 
 	@Override
 	public Integer insertarMatriculacion(String idAsignatura, String idAlumno, String tasa, String fecha) {
-		EntityManagerFactory emf =  DBUtils.creadorEntityManagerFactory();
-		EntityManager em = emf.createEntityManager();
-		
-		em.getTransaction().begin();
-		
-		
-		AlumnoEntity a =em.find(AlumnoEntity.class,Integer.parseInt(idAlumno));
-		AsignaturasEntity as =em.find(AsignaturasEntity.class,Integer.parseInt(idAsignatura));
 		
 		Date cdareDate= new Date(1);
 		String fdate=new SimpleDateFormat("yyy-MM-dd").format(cdareDate);
@@ -73,6 +66,15 @@ public class MatriculacionDAOImplJpa implements MatriculacionDAO {
 			fecha=fdate;
 		}
 		
+		EntityManagerFactory emf =  DBUtils.creadorEntityManagerFactory();
+		EntityManager em = emf.createEntityManager();
+		
+		em.getTransaction().begin();
+		
+		
+		AlumnoEntity a =em.find(AlumnoEntity.class,Integer.parseInt(idAlumno));
+		AsignaturasEntity as =em.find(AsignaturasEntity.class,Integer.parseInt(idAsignatura));
+
 		MatriculacionesEntity no = new MatriculacionesEntity(a, as, fecha, 1);
 		
 		CajaEntity cajaEntity=new CajaEntity((no.getId()+1), no,Double.parseDouble(tasa));
@@ -80,9 +82,11 @@ public class MatriculacionDAOImplJpa implements MatriculacionDAO {
 		
 		
 		em.persist(no);
+		em.getTransaction();
 		em.persist(cajaEntity);
+		
 		em.getTransaction().commit();
-
+		
 		em.close();
 		//Obtenemos el valor de la PK insertada para devolverlo
 		return (Integer) emf.getPersistenceUnitUtil().getIdentifier(cajaEntity);
@@ -90,15 +94,28 @@ public class MatriculacionDAOImplJpa implements MatriculacionDAO {
 
 	@Override
 	public Integer borrarMatriculacion(String idMatricula) {
-		SessionFactory factory = DBUtils.creadorSessionFactory();
-		Session s = factory.getCurrentSession();
+		EntityManagerFactory emf =  DBUtils.creadorEntityManagerFactory();
+		EntityManager em = emf.createEntityManager();
 		
-		s.beginTransaction();
-		Query query = s.createQuery("DELETE FROM MatriculacionesEntity where id = :id").setParameter("id", Integer.parseInt(idMatricula));
-		int result = query.executeUpdate();		
-		s.close();		
-		return result;
+		em.getTransaction().begin();
+		//Recuperamos la entidad a borrar
+		CajaEntity ca = em.find(CajaEntity.class, Integer.parseInt(idMatricula));		
+		if (ca !=null) {
+	        em.remove(ca);
+	        em.getTransaction();
+	        MatriculacionesEntity a = em.find(MatriculacionesEntity.class, Integer.parseInt(idMatricula));		
+			if (a !=null) {
+		        em.remove(a);
+		        em.getTransaction().commit();
+		        em.close();
+			    return 1;
+			}       
+	       
+		}     
 		
+		//Recuperamos la entidad a borrar
+        em.close();
+	    return 0;
 		
 	}
 
