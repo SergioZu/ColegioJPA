@@ -1,4 +1,4 @@
-package com.kike.colegio.dao.implhib;
+package com.kike.colegio.dao.impljpa;
 
 import java.util.List;
 
@@ -109,9 +109,9 @@ public class NotaDAOImplJpa implements NotaDAO{
 		AlumnoEntity a =em.find(AlumnoEntity.class,Integer.parseInt(idAlumno));
 		AsignaturasEntity as =em.find(AsignaturasEntity.class,Integer.parseInt(idAsignatura));
 		
-		NotasEntity no = new NotasEntity(Integer.parseInt(idNota),a, as, Double.parseDouble(nota), fecha);		
+		NotasEntity no = em.find(NotasEntity.class, Integer.parseInt(idNota));		
 		//Actualizamos sus valores con los nuevos
-		no.setId(Integer.parseInt(idNota));
+		
 		no.setAlumnos(a);
 		no.setAsignaturas(as);
 		no.setNota(Double.parseDouble(nota));

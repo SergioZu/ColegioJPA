@@ -1,4 +1,4 @@
-package com.kike.colegio.dao.implhib;
+package com.kike.colegio.dao.impljpa;
 
 import java.util.List;
 

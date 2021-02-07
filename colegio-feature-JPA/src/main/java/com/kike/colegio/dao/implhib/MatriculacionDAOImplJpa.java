@@ -4,12 +4,16 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 
 import com.kike.colegio.dao.MatriculacionDAO;
+import com.kike.colegio.dtos.AlumnoDTO;
 import com.kike.colegio.dtos.MatriculacionDTO;
 import com.kike.colegio.entities.AlumnoEntity;
 import com.kike.colegio.entities.AsignaturasEntity;
@@ -17,7 +21,7 @@ import com.kike.colegio.entities.CajaEntity;
 import com.kike.colegio.entities.MatriculacionesEntity;
 import com.kike.colegio.utils.DBUtils;
 
-public class MatriculacionDAOImplHib implements MatriculacionDAO {
+public class MatriculacionDAOImplJpa implements MatriculacionDAO {
 
 	@Override
 	public List<MatriculacionDTO> obtenerMatriculacionesPorIdasigNombreAsigIdalumNombrealumFechaActivo(String idAsig,
@@ -31,29 +35,36 @@ public class MatriculacionDAOImplHib implements MatriculacionDAO {
 					+ " and  CAST( m.activo AS string ) LIKE :activo";
 		
 		
+
+		EntityManagerFactory emf =  DBUtils.creadorEntityManagerFactory();
+		EntityManager em = emf.createEntityManager();
 		
+		em.getTransaction().begin();
+		javax.persistence.Query query = em.createQuery(jpql).setParameter("idAsig", "%" + idAsig + "%")
+				.setParameter("nombreAsig", "%" + nombreAsig + "%")
+				.setParameter("idAlum", "%" + idAlum + "%")
+				.setParameter("aNombre", "%" + nombreAlum + "%")
+				.setParameter("fecha", "%" + fecha + "%")
+				.setParameter("activo", "%" + activo + "%");
+		List<MatriculacionDTO> lista = query.getResultList();
+		em.close();
 
-			SessionFactory factory = DBUtils.creadorSessionFactory();
-			Session s = factory.getCurrentSession();
-			s.beginTransaction();
-			
-			
-			Query query = s.createQuery(jpql).setParameter("idAsig", "%" + idAsig + "%")
-					.setParameter("nombreAsig", "%" + nombreAsig + "%")
-					.setParameter("idAlum", "%" + idAlum + "%")
-					.setParameter("aNombre", "%" + nombreAlum + "%")
-					.setParameter("fecha", "%" + fecha + "%")
-					.setParameter("activo", "%" + activo + "%");
-			
-			List<MatriculacionDTO> lista = query.getResultList();
 
-			s.close(); // Cerramos la sesión
+		return lista;
 
-			return lista;
+			
 	}
 
 	@Override
 	public Integer insertarMatriculacion(String idAsignatura, String idAlumno, String tasa, String fecha) {
+		EntityManagerFactory emf =  DBUtils.creadorEntityManagerFactory();
+		EntityManager em = emf.createEntityManager();
+		
+		em.getTransaction().begin();
+		
+		
+		AlumnoEntity a =em.find(AlumnoEntity.class,Integer.parseInt(idAlumno));
+		AsignaturasEntity as =em.find(AsignaturasEntity.class,Integer.parseInt(idAsignatura));
 		
 		Date cdareDate= new Date(1);
 		String fdate=new SimpleDateFormat("yyy-MM-dd").format(cdareDate);
@@ -62,26 +73,19 @@ public class MatriculacionDAOImplHib implements MatriculacionDAO {
 			fecha=fdate;
 		}
 		
-		SessionFactory factory = DBUtils.creadorSessionFactory();
-		Session s = factory.getCurrentSession();
-		s.beginTransaction();
-		
-		AlumnoEntity a =s.find(AlumnoEntity.class,Integer.parseInt(idAlumno));
-		AsignaturasEntity as =s.find(AsignaturasEntity.class,Integer.parseInt(idAsignatura));
-		
-		
-		
 		MatriculacionesEntity no = new MatriculacionesEntity(a, as, fecha, 1);
-		 Integer idPk = (Integer) s.save(no);
 		
 		CajaEntity cajaEntity=new CajaEntity((no.getId()+1), no,Double.parseDouble(tasa));
 		
-		s.save(cajaEntity);
+		
+		
+		em.persist(no);
+		em.persist(cajaEntity);
+		em.getTransaction().commit();
 
-		s.getTransaction().commit();
-		s.close();
-
-		return idPk;
+		em.close();
+		//Obtenemos el valor de la PK insertada para devolverlo
+		return (Integer) emf.getPersistenceUnitUtil().getIdentifier(cajaEntity);
 	}
 
 	@Override
@@ -90,12 +94,8 @@ public class MatriculacionDAOImplHib implements MatriculacionDAO {
 		Session s = factory.getCurrentSession();
 		
 		s.beginTransaction();
-		
-		Query query1 = s.createQuery("DELETE FROM CajaEntity where idmatricula = :id").setParameter("id", Integer.parseInt(idMatricula));
-		query1.executeUpdate();
-		
-		Query query2 = s.createQuery("DELETE FROM MatriculacionesEntity where id = :id").setParameter("id", Integer.parseInt(idMatricula));
-		int result = query2.executeUpdate();		
+		Query query = s.createQuery("DELETE FROM MatriculacionesEntity where id = :id").setParameter("id", Integer.parseInt(idMatricula));
+		int result = query.executeUpdate();		
 		s.close();		
 		return result;
 		

@@ -18,7 +18,7 @@ import com.kike.colegio.dao.impl.AsignaturaDAOImpl;
 import com.kike.colegio.dao.impl.CombosDAOImpl;
 import com.kike.colegio.dao.implhib.AlumnoDAOImplHib;
 import com.kike.colegio.dao.implhib.AsignaturaDAOImplHib;
-import com.kike.colegio.dao.implhib.AsignaturaDAOImplJpa;
+import com.kike.colegio.dao.impljpa.AsignaturaDAOImplJpa;
 import com.kike.colegio.dtos.ComboDTO;
 import com.kike.colegio.utils.ComboUtils;
 

@@ -11,7 +11,7 @@ import java.util.List;
 import com.kike.colegio.dao.impl.AlumnoDAOImpl;
 import com.kike.colegio.dao.impl.AsignaturaDAOImpl;
 import com.kike.colegio.dao.implhib.AsignaturaDAOImplHib;
-import com.kike.colegio.dao.implhib.AsignaturaDAOImplJpa;
+import com.kike.colegio.dao.impljpa.AsignaturaDAOImplJpa;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

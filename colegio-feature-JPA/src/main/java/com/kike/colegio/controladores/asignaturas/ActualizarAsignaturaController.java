@@ -15,7 +15,7 @@ import com.kike.colegio.dao.impl.AlumnoDAOImpl;
 import com.kike.colegio.dao.impl.AsignaturaDAOImpl;
 import com.kike.colegio.dao.implhib.AlumnoDAOImplHib;
 import com.kike.colegio.dao.implhib.AsignaturaDAOImplHib;
-import com.kike.colegio.dao.implhib.AsignaturaDAOImplJpa;
+import com.kike.colegio.dao.impljpa.AsignaturaDAOImplJpa;
 
 /**
  * Servlet Implation class ActualizarAsignaturaController

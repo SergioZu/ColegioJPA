@@ -127,7 +127,21 @@ public class AlumnoDAOImplJpa implements AlumnoDAO {
 
 	@Override
 	public boolean esFamiliaNumerosa(String idAlumno) {
-		// TODO Auto-generated method stub
+		String hql = "select new com.kike.colegio.dtos.AlumnoDTO (a.famNumerosa)" + " FROM AlumnoEntity a where CAST( a.id AS string )  LIKE :id ";
+		EntityManagerFactory emf =  DBUtils.creadorEntityManagerFactory();
+		EntityManager em = emf.createEntityManager();
+		
+		em.getTransaction().begin();
+		javax.persistence.Query query = em.createQuery(hql).setParameter("id", "%" + idAlumno + "%");
+		List<AlumnoDTO> lista = query.getResultList();
+		em.close();
+
+
+		if(lista.get(0).getFamNumerosa()>0) {
+			return true;
+		}
+		
 		return false;
+				
 	}
 }

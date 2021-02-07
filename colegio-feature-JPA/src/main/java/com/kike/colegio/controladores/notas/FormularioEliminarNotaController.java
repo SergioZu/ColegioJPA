@@ -13,7 +13,7 @@ import com.kike.colegio.dao.NotaDAO;
 import com.kike.colegio.dao.impl.NotaDAOImpl;
 import com.kike.colegio.dao.implhib.AlumnoDAOImplHib;
 import com.kike.colegio.dao.implhib.NotaDAOImplHib;
-import com.kike.colegio.dao.implhib.NotaDAOImplJpa;
+import com.kike.colegio.dao.impljpa.NotaDAOImplJpa;
 
 /**
  * Servlet Implation class FormularioEliminarNotaController

@@ -14,7 +14,7 @@ import com.kike.colegio.dao.NotaDAO;
 import com.kike.colegio.dao.impl.AsignaturaDAOImpl;
 import com.kike.colegio.dao.impl.NotaDAOImpl;
 import com.kike.colegio.dao.implhib.NotaDAOImplHib;
-import com.kike.colegio.dao.implhib.NotaDAOImplJpa;
+import com.kike.colegio.dao.impljpa.NotaDAOImplJpa;
 import com.kike.colegio.utils.ComboUtils;
 
 /**
