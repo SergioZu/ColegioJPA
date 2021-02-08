@@ -77,12 +77,11 @@ public class MatriculacionDAOImplJpa implements MatriculacionDAO {
 
 		MatriculacionesEntity no = new MatriculacionesEntity(a, as, fecha, 1);
 		
-		CajaEntity cajaEntity=new CajaEntity((no.getId()+1), no,Double.parseDouble(tasa));
+		CajaEntity cajaEntity=new CajaEntity( no,Double.parseDouble(tasa));
 		
 		
 		
 		em.persist(no);
-		em.getTransaction().commit();
 		em.persist(cajaEntity);
 		
 		em.getTransaction().commit();
